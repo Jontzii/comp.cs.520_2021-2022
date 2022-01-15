@@ -5,38 +5,13 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onCheck, onClick, onInput, onSubmit)
 
--- Functions
-
 initPlayer : Int -> Player
 initPlayer id =
     Player id "" False
 
--- Sets name of a player to given string
-setPlayerName : Player -> String -> Player
-setPlayerName player name =
-    Player player.id name player.isActive
-
--- Adds player to list
-addPlayerToList : Player -> List Player -> List Player
-addPlayerToList player old =
-    player :: old
-
--- Increase counter by one
-increaseCounter : Player -> Int
-increaseCounter player =
-    player.id + 1
-
--- Remove player from list
-removePlayer : List Player -> Int -> List Player
-removePlayer lst id =
-    List.filter (\x -> x.id /= id) lst
-
 -- Update player active status
 modifyPlayer : List Player -> Int -> Bool -> List Player
 modifyPlayer lst id status =
-    -- Find player with id from list
-    -- Modify player active status
-    -- Return list with modified player
     List.map (\x -> if x.id == id then { x | isActive = status } else x) lst
 
 -- MODEL
@@ -73,16 +48,21 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         SetName name ->
-            { model | newPlayer = (setPlayerName model.newPlayer name) }
+            { model | newPlayer =
+                { id=model.newPlayer.id
+                , name=name
+                , isActive=model.newPlayer.isActive
+                }
+            }
 
         AddPlayer ->
             { model
-            | players = addPlayerToList model.newPlayer model.players
-            , newPlayer = initPlayer (increaseCounter model.newPlayer)
+            | players = model.newPlayer :: model.players
+            , newPlayer = initPlayer (model.newPlayer.id + 1)
             }
 
         DeletePlayer id ->
-            { model | players = removePlayer model.players id}
+            { model | players = List.filter (\x -> x.id /= id) model.players }
 
         ModifyPlayer id status ->
             { model | players = modifyPlayer model.players id status }
