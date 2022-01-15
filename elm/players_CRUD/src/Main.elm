@@ -42,9 +42,6 @@ init =
 update : Msg -> Model -> Model
 update msg model =
     let
-        --_ = Debug.log "update (msg)" msg
-        --_ = Debug.log "update (model)" model
-        _ = Debug.log "update (players)" model.players
         players = model.players
         newPlayer = model.newPlayer
     in
@@ -59,7 +56,7 @@ update msg model =
 
         AddPlayer ->
             { model
-            | players = newPlayer :: players
+            | players = List.reverse (newPlayer :: (List.reverse players))
             , newPlayer = initPlayer (newPlayer.id + 1)
             }
 
@@ -107,7 +104,7 @@ renderPlayer player delete modify =
 view : Model -> Html Msg
 view model =
     let
-      players = List.reverse model.players
+      players = model.players
     in
     div []
         [ h3 [] [ text "Add player" ]
