@@ -9,11 +9,6 @@ initPlayer : Int -> Player
 initPlayer id =
     Player id "" False
 
--- Update player active status
-modifyPlayer : List Player -> Int -> Bool -> List Player
-modifyPlayer lst id status =
-    List.map (\x -> if x.id == id then { x | isActive = status } else x) lst
-
 -- MODEL
 
 -- Data Model of a player
@@ -46,26 +41,33 @@ init =
 
 update : Msg -> Model -> Model
 update msg model =
+    let
+        --_ = Debug.log "update (msg)" msg
+        --_ = Debug.log "update (model)" model
+        _ = Debug.log "update (players)" model.players
+        players = model.players
+        newPlayer = model.newPlayer
+    in
     case msg of
         SetName name ->
             { model | newPlayer =
-                { id=model.newPlayer.id
+                { id=newPlayer.id
                 , name=name
-                , isActive=model.newPlayer.isActive
+                , isActive=newPlayer.isActive
                 }
             }
 
         AddPlayer ->
             { model
-            | players = model.newPlayer :: model.players
-            , newPlayer = initPlayer (model.newPlayer.id + 1)
+            | players = newPlayer :: players
+            , newPlayer = initPlayer (newPlayer.id + 1)
             }
 
         DeletePlayer id ->
-            { model | players = List.filter (\x -> x.id /= id) model.players }
+            { model | players = List.filter (\x -> x.id /= id) players }
 
         ModifyPlayer id status ->
-            { model | players = modifyPlayer model.players id status }
+            { model | players = List.map (\x -> if x.id == id then { x | isActive = status } else x) players }
 
 -- VIEW
 
@@ -104,13 +106,16 @@ renderPlayer player delete modify =
 
 view : Model -> Html Msg
 view model =
+    let
+      players = List.reverse model.players
+    in
     div []
         [ h3 [] [ text "Add player" ]
         , renderForm model.newPlayer.name SetName AddPlayer
         , h3 [] [ text "Players list" ]
         , ol 
             [ id "players-list"
-            ] (List.map (\x -> (renderPlayer x DeletePlayer ModifyPlayer)) model.players)
+            ] (List.map (\x -> (renderPlayer x DeletePlayer ModifyPlayer)) players)
         ]
 
 main : Program () Model Msg
