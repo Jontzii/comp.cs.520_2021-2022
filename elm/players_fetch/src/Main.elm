@@ -2,10 +2,6 @@
 -- Update the id from the fetched players
 -- Add player to the end of the list
 
--- TODO:
--- Set isActive from fetched players
--- Set correct player id for new players
-
 module Main exposing (..)
 
 import Browser
@@ -55,11 +51,18 @@ fetchPlayers url =
         , expect = Http.expectJson FetchPlayers playersDecoder
         }
 
-
 listLast : List a -> Maybe a
 listLast list =
     List.head <| List.reverse list
 
+updatePlayerId : List Player -> Player -> Player
+updatePlayerId players player =
+    case listLast players of
+        Nothing ->
+            Player player.id player.name player.isActive
+        Just lastPlayer ->
+            Player (lastPlayer.id + 1) player.name player.isActive
+    
 
 initPlayer : Int -> Player
 initPlayer id =
@@ -107,13 +110,10 @@ update msg model =
             case data of
                 Ok fetchedPlayers ->
                     (
-                        let
-                            _ = Debug.log "Data" fetchedPlayers
-                        in
-                        
                         { model
                         | reqStatus = ""
                         , players = fetchedPlayers
+                        , newPlayer = updatePlayerId fetchedPlayers model.newPlayer
                         }
                         , Cmd.none
                     )
@@ -148,8 +148,9 @@ renderPlayer player delete modify =
                 [ type_ "checkbox"
                 , class "player-status"
                 , onCheck (\checkValue -> (modify player.id checkValue))
+                , checked player.isActive
                 ] []
-            , text "active"
+                , text "active"
             ]
         , button
             [ class "btn-delete"
