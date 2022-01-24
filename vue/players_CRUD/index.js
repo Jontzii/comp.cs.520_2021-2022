@@ -9,7 +9,14 @@ const AddPlayerComponent = {
   },
   template: `
     <form id="submit-player">
-      <input type="text" id="input-player" v-model="name" placeholder="Enter player name">
+      <input
+        type="text"
+        id="input-player"
+        name="player-name"
+        v-model="name"
+        placeholder="Enter player name"
+        required
+      >
       <button
         type="submit"
         id="add-btn"
