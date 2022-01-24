@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue - Players CRUD2</title>
+  </head>
+  <body>
+    <!-- App View -->
+    <div id="root"></div>
+
+    <!-- Load Vue Library -->
+    <script src="libs/v2.6.14.vue.js"></script>
+
+    <!-- Load Student's Code -->
+    <script src="index.js"></script>
+
+    <!-- Initialize Vue -->
+    <script>
+      Vue.component("auth-user", AuthUserComponent);
+      Vue.component("add-player", AddPlayerComponent);
+      Vue.component("list-player", ListPlayerComponent);
+      Vue.component("list-players", ListPlayersComponent);
+      Vue.component("show-player", ShowPlayerComponent);
+      Vue.component("request-status", RequestStatusComponent);
+      new Vue({ ...App, el: "#root" });
+    </script>
+  </body>
+</html>

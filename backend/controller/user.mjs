@@ -8,7 +8,7 @@ const log = debug('backend:user-controller');
 export const register = async (req, res, next) => {
   try {
     const user = await registerUser(req.body);
-    return res.json(user);
+    return res.status(201).json(user);
   } catch (err) {
     log('Registration failed');
     if (err instanceof UserValidationError) {

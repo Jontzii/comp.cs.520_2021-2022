@@ -1,0 +1,26 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "The Professor",
+      "isActive": false
+    },
+    {
+      "name": "Denver",
+      "isActive": true,
+      "id": 2
+    },
+    {
+      "name": "Tokyo",
+      "isActive": false,
+      "id": 5
+    }
+  ],
+  "users": [
+    {
+      "username": "root",
+      "password": "$2b$10$QzvQDbcDNJXp7L3aCH0eZumpFcwsn60bQ.QYUitut5dz5vDPC4v86",
+      "id": 1
+    }
+  ]
+}

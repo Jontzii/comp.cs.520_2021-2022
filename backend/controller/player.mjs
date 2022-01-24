@@ -47,7 +47,22 @@ export const removePlayer = async (req, res, next) => {
 };
 
 export const showAllPlayers = (req, res, next) => {
+  const config = req.app.get('config');
   const players = getAllPlayers();
+
+  if (config?.allPlayersHideIsActive) {
+    // filter out player status from player list
+    return res.json(
+      players.reduce((results, player) => {
+        results.push({
+          id: player.id,
+          name: player.name
+        });
+        return results;
+      }, [])
+    );
+  }
+
   res.json(players);
 };
 
