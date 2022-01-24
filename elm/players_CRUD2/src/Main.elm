@@ -201,7 +201,14 @@ update msg model =
                         id = player.id
                         status = player.isActive
                     in
-                    ( { model | players = List.map (\x -> if x.id == id then { x | isActive = status } else x) players }, Cmd.none )
+                    ( 
+                        { model 
+                        | players = List.map 
+                            (\x -> if x.id == id 
+                                then { x | isActive = status } 
+                                else x
+                            ) players }
+                        , Cmd.none )
                 Err _ ->
                     ( model, Cmd.none )
 
