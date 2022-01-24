@@ -1,6 +1,6 @@
 "use strict";
 
-const template= `
+const template = `
 <div>
   <div>
     <h3>Players List</h3>
@@ -19,6 +19,7 @@ const template= `
   <div>
     <h3>Selected Player</h3>
     <div v-if="selectedPlayer !== null" id="selected-player">
+      <div id="player-id">{{selectedPlayer.id}}</div>
       <div id="player-name">{{selectedPlayer.name}}</div>
       <div id="player-status">
         {{selectedPlayer.isActive ? "active" : "not active"}}
@@ -27,11 +28,41 @@ const template= `
   </div>
   <div id="request-status">{{reqStatus}}</div>
 </div>
-`
+`;
 
 const App = {
-//TODO: template, data and methods missing
+  //TODO: template, data and methods missing
+  template: template,
   created() {
     this.getPlayers();
+  },
+  data() {
+    return {
+      players: [],
+      selectedPlayer: null,
+      reqStatus: "Loading...",
+    };
+  },
+  methods: {
+    getPlayers() {
+      this.reqStatus = "Loading...";
+      fetch("http://localhost:3001/api/players")
+        .then((res) => res.json())
+        .then((data) => {
+          this.reqStatus = "";
+          this.players = data;
+        })
+        .catch(() => (this.reqStatus = "An error has occured!!!"));
+    },
+    getPlayer(id) {
+      this.reqStatus = "Loading...";
+      fetch(`http://localhost:3001/api/players/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.reqStatus = "";
+          this.selectedPlayer = data;
+        })
+        .catch(() => (this.reqStatus = "An error has occured!!!"));
+    },
   },
 };
