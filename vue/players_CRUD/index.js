@@ -39,7 +39,6 @@ const ListPlayersComponent = {
           v-for="player in players"
           v-bind:player="player"
           v-bind:key="player.id"
-          v-bind:id="'player-' + player.id"
           v-on:player-clicked="$emit('player-clicked', $event)"
         ></list-player>
       </ol>
@@ -51,7 +50,7 @@ const ListPlayerComponent = {
   name: "list-player",
   props: ["player"],
   template: `
-    <li>
+    <li :id="'player-' + player.id">
       <a v-on:click="$emit('player-clicked', player.id)" href="#">{{player.name}}</a>
     </li>
   `,
