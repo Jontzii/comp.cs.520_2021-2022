@@ -2,6 +2,9 @@
 
 // TODO:
 // Fix event prevent not working
+// Login event not firing
+// Register emit not firing
+// Add-player emit not firing
 
 const AuthUserComponent = {
   name: "auth-user",
@@ -18,7 +21,7 @@ const AuthUserComponent = {
       <div v-if="isLoggedIn === false">
         <a v-on:event.prevent href="#" id="switch-link" v-if="registerForm === true" v-on:click="registerForm = false">Go to login</a>
         <a v-on:event.prevent href="#" id="switch-link" v-else v-on:click="registerForm = true">Go to register</a>
-        <form id="submit-player" v-on:event.prevent>
+        <form id="auth-form" v-on:event.prevent>
           <input
             type="text"
             id="auth-username"
@@ -40,19 +43,17 @@ const AuthUserComponent = {
             type="submit"
             id="auth-btn"
             v-if="registerForm === false"
-            v-on:event.prevent
             v-on:click="$emit('login', {username, password})"
           >
-            Login
+            login
           </button>
           <button
             type="submit"
             id="auth-btn"
             v-if="registerForm === true"
-            v-on:event.prevent
             v-on:click="$emit('register', {username, password})"
           >
-            Register
+            register
           </button>
         </form>
       </div>
@@ -83,7 +84,6 @@ const AddPlayerComponent = {
       <button
         type="submit"
         id="add-btn"
-        v-on:event.prevent
         v-on:click="$emit('add-player', name)"
       >
         Add
