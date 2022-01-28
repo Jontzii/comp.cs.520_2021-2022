@@ -1,11 +1,5 @@
 "use strict";
 
-// TODO:
-// Fix event prevent not working
-// Login event not firing
-// Register emit not firing
-// Add-player emit not firing
-
 const AuthUserComponent = {
   name: "auth-user",
   props: ["isLoggedIn"],
@@ -19,46 +13,75 @@ const AuthUserComponent = {
   template: `
     <div>
       <div v-if="isLoggedIn === false">
-        <a v-on:event.prevent href="#" id="switch-link" v-if="registerForm === true" v-on:click="registerForm = false">Go to login</a>
-        <a v-on:event.prevent href="#" id="switch-link" v-else v-on:click="registerForm = true">Go to register</a>
-        <form id="auth-form" v-on:event.prevent>
-          <input
-            type="text"
-            id="auth-username"
-            name="auth-username"
-            v-model="username"
-            placeholder="Username"
-            required
+        <div v-if="registerForm === true">
+          <a
+            href="#"
+            id="switch-link"
+            v-on:event.prevent
+            v-on:click="registerForm = false"
           >
-          <input
-            type="password"
-            id="auth-password"
-            name="auth-password"
-            v-model="password"
-            placeholder="Password"
-            required
+            Go to login
+          </a>
+          <form
+            id="auth-form"
+            v-on:submit.prevent="$emit('register', {username, password})"
           >
-
-          <button
-            type="submit"
-            id="auth-btn"
-            v-if="registerForm === false"
-            v-on:click="$emit('login', {username, password})"
+            <input
+              type="text"
+              id="auth-username"
+              name="auth-username"
+              v-model="username"
+              placeholder="Username"
+              required
+            >
+            <input
+              type="password"
+              id="auth-password"
+              name="auth-password"
+              v-model="password"
+              placeholder="Password"
+              required
+            >
+            <button type="submit" id="auth-btn">
+              register
+            </button>
+          </form>
+        </div>
+        <div v-else>
+          <a
+            href="#"
+            id="switch-link"
+            v-on:event.prevent
+            v-on:click="registerForm = true"
           >
-            login
-          </button>
-          <button
-            type="submit"
-            id="auth-btn"
-            v-if="registerForm === true"
-            v-on:click="$emit('register', {username, password})"
+            Go to register
+          </a>
+          <form
+            id="auth-form"
+            v-on:submit.prevent="$emit('login', {username, password})"
           >
-            register
-          </button>
-        </form>
+            <input
+              type="text"
+              id="auth-username"
+              name="auth-username"
+              v-model="username"
+              placeholder="Username"
+              required
+            >
+            <input
+              type="password"
+              id="auth-password"
+              name="auth-password"
+              v-model="password"
+              placeholder="Password"
+              required
+            >
+            <button type="submit" id="auth-btn">login</button>
+          </form>
+        </div>
       </div>
       <div v-else>
-      <a v-on:event.prevent href="#" id="switch-link" v-on:click="$emit('logout')">Logout</a>
+        <a v-on:event.prevent href="#" id="switch-link" v-on:click="$emit('logout')">Logout</a>
       </div>
     </div>
   `,
@@ -72,7 +95,7 @@ const AddPlayerComponent = {
     };
   },
   template: `
-    <form id="submit-player" v-on:event.prevent>
+    <form id="submit-player" v-on:submit.prevent="$emit('add-player', name)">
       <input
         type="text"
         id="input-player"
@@ -84,7 +107,6 @@ const AddPlayerComponent = {
       <button
         type="submit"
         id="add-btn"
-        v-on:click="$emit('add-player', name)"
       >
         Add
       </button>
@@ -199,14 +221,12 @@ const App = {
         },
       })
         .then((res) => {
-          console.log("response", res);
-          if (res.ok) loginUser(data);
+          if (res.ok) this.loginUser(data);
           else this.reqStatus = "An error has occured!!!";
         })
         .catch(() => (this.reqStatus = "An error has occured!!!"));
     },
     loginUser(data) {
-      this.isLoggedIn = true;
       this.authorization = btoa(`${data.username}:${data.password}`);
       this.reqStatus = "Loading...";
 
@@ -219,6 +239,7 @@ const App = {
         .then((data) => {
           this.reqStatus = "";
           this.players = data;
+          this.isLoggedIn = true;
         })
         .catch(() => {
           this.reqStatus = "An error has occured!!!";
