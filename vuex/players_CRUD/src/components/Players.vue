@@ -10,7 +10,7 @@
   </form>
 
   <ul id="playerlist">
-    <li v-for="(player, index) in state.playerlist" :key="index">
+    <li v-for="(player, index) in state.players" :key="index">
       {{ player.name }}
       <button @click="remove(index)">🗑️</button>
     </li>
@@ -18,16 +18,22 @@
 </template>
 <script>
 import Constant from "../Constant";
-import { reactive, computed } from "vue";
+import { reactive } from "vue";
 import { mapActions } from "vuex";
 import { useStore } from "vuex";
 
 export default {
   setup() {
-    //TODO
+    const store = useStore();
+    const state = reactive(store.state);
+    const current_player = "";
+    return { state, current_player };
   },
   methods: {
-    //TODO
-  },
+    ...mapActions({
+      add: Constant.ADD_PLAYER,
+      remove: Constant.REMOVE_PLAYER
+    })
+  }
 };
 </script>

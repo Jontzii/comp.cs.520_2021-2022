@@ -11,7 +11,10 @@ import { mapActions } from "vuex";
 
 export default {
   methods: {
-    //TODO
+    ...mapActions({
+      rmLast: Constant.REMOVE_LAST,
+      rmDelay: Constant.REMOVE_DELAY
+    })
   }
 };
 </script>
