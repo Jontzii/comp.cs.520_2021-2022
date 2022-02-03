@@ -31,9 +31,7 @@ where `<exercise-name>` is one of the following:
 - `react-crud`
 - `react-crud2`
 - `react-fetch`
-- `redux-crud`
-- `redux-crud2`
-- `redux-fetch`
+- `redux-thunk`
 - `vue-crud`
 - `vue-crud2`
 - `vue-fetch`
@@ -41,7 +39,7 @@ where `<exercise-name>` is one of the following:
 - `vuex-crud2`
 - `vuex-fetch`
 
-The server will listen on port 3001.
+The server will listen on port **3001**.
 
 
 ## REST API documentation

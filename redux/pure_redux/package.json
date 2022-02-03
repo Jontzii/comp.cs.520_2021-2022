@@ -1,0 +1,46 @@
+{
+  "name": "pure_redux",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "jest",
+    "start": "http-server . -p 3000 -c-1 -o /players.html"
+  },
+  "private": true,
+  "author": "janne.miilunpalo@tuni.fi",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.4.2",
+    "http-server": "^14.1.0",
+    "jest": "^27.4.3",
+    "jest-html-reporter": "^3.4.2",
+    "jest-json-reporter": "^1.2.2",
+    "redux": "^4.1.2",
+    "redux-test-utils": "^1.0.2"
+  },
+  "jest": {
+    "coverageReporters": [
+      "html",
+      "json"
+    ],
+    "verbose": true,
+    "cache": false,
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "reporters": [
+      "default",
+      [
+        "./node_modules/jest-html-reporter",
+        {
+          "pageTitle": "Test Report"
+        }
+      ]
+    ],
+    "testResultsProcessor": "./node_modules/jest-json-reporter"
+  }
+}

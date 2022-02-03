@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redux Players</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  </head>
+  <body>
+    <h1>Players CRUD with Pure Redux</h1>
+    <div>
+      <h2>Add player</h2>
+      <form method="POST">
+        <div>
+          <label for="name">Player name:</label>
+          <input id="name" type="text" name="name" required />
+        </div>
+        <div>
+          <input id="active" type="checkbox" name="active" />
+          <label for="active">Is active</label>
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <h2>Players List</h2>
+    <ol id="players-list"></ol>
+
+    <template id="player-info-template">
+      <li>
+        <div class="player-id">{player.id}</div>
+        <div class="player-name">{player.name}</div>
+        <div class="player-status">{player.isActive ? 'active' : 'not active'}</div>
+        <button class="toggle-btn">Toggle Activity</button>
+        <button class="delete-btn">Delete</button>
+      </li>
+    </template>
+
+    <script type="module" src="players.js"></script>
+  </body>
+</html>

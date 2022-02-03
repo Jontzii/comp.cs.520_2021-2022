@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "json-server --watch db/players.json --middlewares db/auth.js db/server.js --routes db/routes.json --port 3000"
+    "server": "json-server --watch db/players.json --middlewares db/auth.js db/server.js --routes db/routes.json --port 3001"
   },
   "keywords": [],
   "author": "",

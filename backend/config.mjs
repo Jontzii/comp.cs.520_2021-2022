@@ -6,7 +6,6 @@ export const getConfig = (exercise = null) => {
 
   switch (exercise) {
     case 'react-crud2':
-    case 'redux-crud2':
     case 'vue-crud2':
       // CRUD2: (Vue, React, and Redux) require authentication and hide "isActive"
       return {
@@ -14,9 +13,8 @@ export const getConfig = (exercise = null) => {
         enableAuthentication: true
       };
     case 'react-fetch':
-    case 'redux-fetch':
     case 'react-crud':
-    case 'redux-crud':
+    case 'redux-thunk':
     case 'vue-crud':
     case 'vue-fetch':
     case 'vuex-fetch':
