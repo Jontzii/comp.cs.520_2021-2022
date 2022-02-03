@@ -19,7 +19,12 @@ function App() {
 
   const fetchPlayers = () => {
     setStatus(requestStatus.LOADING);
-    fetch("/api/players")
+
+    fetch("/api/players", {
+      headers: {
+        Accept: "application/json",
+      },
+    })
       .then((res) => {
         if (res.ok) return res.json();
       })
@@ -33,7 +38,12 @@ function App() {
   const fetchPlayer = (url, e) => {
     setStatus(requestStatus.LOADING);
     e.preventDefault();
-    fetch(url)
+
+    fetch(url, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
       .then((res) => {
         if (res.ok) return res.json();
       })
