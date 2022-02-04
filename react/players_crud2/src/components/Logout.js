@@ -1,3 +1,9 @@
 export const Logout = ({ handleLogout }) => {
-  return null;
+  return (
+    <div>
+      <button id="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+    </div>
+  );
 };
