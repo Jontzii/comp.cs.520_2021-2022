@@ -33,7 +33,7 @@ describe('playersReducer', () => {
 			type: REMOVE_PLAYER,
 			payload: playerToRemove.id,
 		};
-		expect(playersReducer([playerToRemove], removeAction)).toEqual({players: []});
+		expect(playersReducer({players:[playerToRemove]}, removeAction)).toEqual({players: []});
 	});
 });
 

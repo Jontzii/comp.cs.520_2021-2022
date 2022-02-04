@@ -1,8 +1,8 @@
-import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
-import { server, rest } from '../mocks/server';
 import App from '../App';
 import { players } from '../mocks/players';
+import { rest, server } from '../mocks/server';
 
 test('should fetch players from backend when first loaded', async () => {
   render(<App />);
@@ -16,7 +16,7 @@ test('should fetch players from backend when first loaded', async () => {
 
 test('should show error status when loading players fails', async () => {
   server.use(
-    rest.get('/api/players', (req, res, ctx) => {
+    rest.get(/\/api\/players$/, (req, res, ctx) => {
       res(ctx.networkError('Network error'));
     })
   );
@@ -43,6 +43,12 @@ test('should show error status when clicking link and loading player data fails'
     })
   );
 
+  server.use(
+    rest.get('http://localhost:3001/api/players/:playerId', (req, res, ctx) => {
+      res(ctx.networkError('Network error'));
+    })
+  );
+
   render(<App />);
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
@@ -59,14 +65,14 @@ test('should send POST request to backend and add new player to "#players-list"'
   const form = container.querySelector('form');
   fireEvent.submit(form);
 
-  await waitFor(() => screen.getByText(/New Player/i, { selector: 'a' }));
+  await screen.findByText(/New Player/i, { selector: 'a' });
   expect(screen.getAllByRole('listitem')).toHaveLength(players.length + 1);
   expect(container.querySelector('.request-status').textContent.trim()).toBe('');
 });
 
 test('should show error status and not add new player if POST request fails', async () => {
   server.use(
-    rest.post('/api/players', (req, res, ctx) => {
+    rest.post(/\/api\/players$/, (req, res, ctx) => {
       res(ctx.networkError('Network error'));
     })
   );
@@ -102,6 +108,12 @@ test('should show error status and not delete player if DELETE request fails', a
     })
   );
 
+  server.use(
+    rest.delete('http://localhost:3001/api/players/:playerId', (req, res, ctx) => {
+      res(ctx.networkError('Network error'));
+    })
+  );
+
   render(<App />);
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
@@ -110,6 +122,6 @@ test('should show error status and not delete player if DELETE request fails', a
   const button = await screen.findByText(/delete/i);
   UserEvent.click(button);
 
-  await waitFor(() => screen.queryByText('An error has occurred!!!'));
+  await screen.findByText('An error has occurred!!!');
   expect(screen.getAllByRole('listitem')).toHaveLength(players.length);
 });

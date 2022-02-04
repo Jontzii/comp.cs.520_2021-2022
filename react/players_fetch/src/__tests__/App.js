@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
-import { server, rest } from '../mocks/server';
 import App from '../App';
 import { players } from '../mocks/players';
+import { rest, server } from '../mocks/server';
 
 test('should fetch players from backend when first loaded', async () => {
   render(<App />);
@@ -26,7 +26,7 @@ test('should fetch single player data from backend when link is clicked', async 
 
 test('should show error status when request fails', async () => {
   server.use(
-    rest.get('/api/players', (req, res, ctx) => {
+    rest.get(/\/api\/players$/, (req, res, ctx) => {
       res(ctx.networkError('Network error'));
     })
   );

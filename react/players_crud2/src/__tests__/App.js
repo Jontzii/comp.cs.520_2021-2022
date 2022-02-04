@@ -21,6 +21,7 @@ test('should fetch all players from backend after successful login', async () =>
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
 
@@ -48,7 +49,7 @@ test('should show logout link after login', async () => {
 
 test('should show error status after failed login (incorrect credentials)', async () => {
   server.use(
-    rest.get('/api/players', (req, res, ctx) => {
+    rest.get(/\/api\/players$/, (req, res, ctx) => {
       return res(ctx.status(403), ctx.json({ error: 'Check username and password' }));
     })
   );
@@ -118,6 +119,7 @@ test('should fetch all players from backend after successful registration', asyn
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
 
@@ -129,7 +131,7 @@ test('should fetch all players from backend after successful registration', asyn
 
 test('should show error status after failed registration (invalid credentials)', async () => {
   server.use(
-    rest.post('/api/users', (req, res, ctx) => {
+    rest.post(/\/api\/users$/, (req, res, ctx) => {
       return res(ctx.status(400), ctx.json({ error: { username: 'username already taken' } }));
     })
   );
@@ -152,7 +154,7 @@ test('should show error status after failed registration (invalid credentials)',
 
 test('should show error status when loading players fails', async () => {
   server.use(
-    rest.get('/api/players', (req, res, ctx) => {
+    rest.get(/\/api\/players$/, (req, res, ctx) => {
       res(ctx.networkError('Network error'));
     })
   );
@@ -181,6 +183,7 @@ test('should fetch single player data from backend when link is clicked', async 
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
@@ -198,6 +201,12 @@ test('should show error status when clicking link and loading player data fails'
     })
   );
 
+  server.use(
+    rest.get('http://localhost:3001/api/players/:playerId', (req, res, ctx) => {
+      res(ctx.networkError('Network error'));
+    })
+  );
+
   const { container } = render(<App />);
   const username = container.querySelector('#auth-form input[name="username"]');
   await UserEvent.type(username, 'username', { delay: 10 });
@@ -208,6 +217,7 @@ test('should show error status when clicking link and loading player data fails'
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
@@ -227,6 +237,7 @@ test('should send POST request to backend and add new player to "#players-list"'
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const name = container.querySelector('input[name="name"]');
   await UserEvent.type(name, 'New Player', { delay: 10 });
@@ -241,7 +252,7 @@ test('should send POST request to backend and add new player to "#players-list"'
 
 test('should show error status and not add new player if POST request fails', async () => {
   server.use(
-    rest.post('/api/players', (req, res, ctx) => {
+    rest.post(/\/api\/players$/, (req, res, ctx) => {
       res(ctx.networkError('Network error'));
     })
   );
@@ -256,6 +267,7 @@ test('should show error status and not add new player if POST request fails', as
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const name = container.querySelector('input[name="name"]');
   await UserEvent.type(name, 'New Player', { delay: 10 });
@@ -278,6 +290,7 @@ test('should send DELETE request to backend and delete player when "Delete" butt
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
@@ -297,6 +310,12 @@ test('should show error status and not delete player if DELETE request fails', a
     })
   );
 
+  server.use(
+    rest.delete('http://localhost:3001/api/players/:playerId', (req, res, ctx) => {
+      res(ctx.networkError('Network error'));
+    })
+  );
+
   const { container } = render(<App />);
   const username = container.querySelector('#auth-form input[name="username"]');
   await UserEvent.type(username, 'username', { delay: 10 });
@@ -307,6 +326,7 @@ test('should show error status and not delete player if DELETE request fails', a
   const authForm = container.querySelector('#auth-form');
   fireEvent.submit(authForm);
 
+  await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
   await waitFor(() => container.querySelector('input[name="name"]'));
   const listItems = await screen.findAllByRole('listitem');
   const linkElement = listItems[0].querySelector('a');
