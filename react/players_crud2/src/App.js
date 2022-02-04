@@ -173,15 +173,6 @@ function App() {
   };
 
   /**
-   * Get all players
-   */
-  const getPlayers = async () => {
-    const data = await fetchData("/api/players");
-    if (data && Array.isArray(data)) return setPlayers(data);
-    throw new Error();
-  };
-
-  /**
    * Delete player
    * @param {*} id ID of the player
    * @param {*} e Event
