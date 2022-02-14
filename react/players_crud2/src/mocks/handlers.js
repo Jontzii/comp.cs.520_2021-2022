@@ -99,14 +99,17 @@ const registerUser = (req, res, ctx) => {
 
 export const handlers = [
   rest.post(/\/api\/users$/, registerUser),
+	rest.post('http://localhost:3001/api/users/', registerUser),
 
-  rest.get(/\/api\/players$/, getAllPlayers),
+	rest.get(/\/api\/players$/, getAllPlayers),
+	rest.get('http://localhost:3001/api/players/', getAllPlayers),
 
-  rest.get('/api/players/:playerId', getOnePlayer),
-  rest.get('http://localhost:3001/api/players/:playerId', getOnePlayer),
+	rest.get('/api/players/:playerId', getOnePlayer),
+	rest.get('http://localhost:3001/api/players/:playerId', getOnePlayer),
 
-  rest.delete('/api/players/:playerId', deleteOnePlayer),
-  rest.delete('http://localhost:3001/api/players/:playerId', deleteOnePlayer),
+	rest.delete('/api/players/:playerId', deleteOnePlayer),
+	rest.delete('http://localhost:3001/api/players/:playerId', deleteOnePlayer),
 
-  rest.post(/\/api\/players$/, addNewPlayer)
+	rest.post(/\/api\/players$/, addNewPlayer),
+	rest.post('http://localhost:3001/api/players/', addNewPlayer),
 ];
