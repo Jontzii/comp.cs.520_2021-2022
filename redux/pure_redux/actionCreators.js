@@ -1,16 +1,29 @@
-import * as actions from './actionTypes.js';
+import * as actions from "./actionTypes.js";
 
 export const addPlayer = (name, isActive = false) => {
-  // TODO: Implement this function
-  throw new Error('Not Implemented');
+  return {
+    type: actions.ADD_PLAYER,
+    payload: {
+      name,
+      isActive,
+    },
+  };
 };
 
-export const removePlayer = id => {
-  // TODO: Implement this function
-  throw new Error('Not Implemented');
+export const removePlayer = (id) => {
+  return {
+    type: actions.REMOVE_PLAYER,
+    payload: {
+      id,
+    },
+  };
 };
 
-export const togglePlayerStatus = id => {
-  // TODO: Implement this function
-  throw new Error('Not Implemented');
+export const togglePlayerStatus = (id) => {
+  return {
+    type: actions.TOGGLE_PLAYER_STATUS,
+    payload: {
+      id,
+    },
+  };
 };
