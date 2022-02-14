@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import { Player } from "./Player";
 
 export const PlayersList = () => {
-  const players = useSelector((state) => state.players.players);
-  console.log("Players:", players);
+  const { players } = useSelector((state) => state.players);
 
   return (
     <div>
