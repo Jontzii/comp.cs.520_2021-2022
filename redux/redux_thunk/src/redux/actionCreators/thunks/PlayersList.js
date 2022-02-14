@@ -1,8 +1,8 @@
 /** @format THUNK*/
 
-import { ERROR, LOADING, READY } from '../../constants';
-import { setPlayers } from '../playersActions';
-import { setStatus } from '../statusActions';
+import { ERROR, LOADING, READY } from "../../constants";
+import { setPlayers } from "../playersActions";
+import { setStatus } from "../statusActions";
 
 /**
  * @description thunk for getting all players.
@@ -15,4 +15,22 @@ import { setStatus } from '../statusActions';
  * - setStatus-action with "ERROR" string as param
  * @return {Function} - thunk
  */
-export const getPlayers = () => {};
+export const getPlayers = () => {
+  return async (dispatch) => {
+    dispatch(setStatus(LOADING));
+
+    try {
+      const res = await fetch("/api/players", {
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+        },
+      });
+      const data = await res.json();
+      dispatch(setStatus(READY));
+      dispatch(setPlayers(data));
+    } catch {
+      dispatch(setStatus(ERROR));
+    }
+  };
+};
