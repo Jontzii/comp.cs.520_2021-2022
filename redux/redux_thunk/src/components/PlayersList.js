@@ -10,7 +10,9 @@ export const PlayersList = () => {
   const dispatch = useDispatch();
   const players = useSelector((state) => state.players);
 
-  dispatch(getPlayers());
+  useEffect(() => {
+    dispatch(getPlayers());
+  }, [dispatch]);
 
   return (
     <ol id="players-list">

@@ -12,8 +12,8 @@ export const PlayerInfo = () => {
     dispatch(deleteSelectedPlayer());
   };
 
-  if (selectedPlayer === {}) {
-    <div id="selected-player"></div>;
+  if (Object.keys(selectedPlayer).length === 0) {
+    return <div id="selected-player"></div>;
   }
 
   return (

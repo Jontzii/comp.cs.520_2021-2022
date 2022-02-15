@@ -34,7 +34,7 @@ export const deleteSelectedPlayer = () => {
       });
       const data = await res.json();
       dispatch(setStatus(READY));
-      dispatch(removePlayer(data));
+      dispatch(removePlayer(data.id));
       dispatch(clearSelectedPlayer());
     } catch {
       dispatch(setStatus(ERROR));
