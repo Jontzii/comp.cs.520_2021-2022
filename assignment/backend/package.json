@@ -1,0 +1,42 @@
+{
+  "name": "assignment-backend",
+  "version": "1.0.0",
+  "description": "Advanced Web Front-ends Assignment Backend (spring 2022)",
+  "main": "index.mjs",
+  "private": true,
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "scripts": {
+    "start": "nodemon index.mjs",
+    "nodemon": "nodemon index.mjs",
+    "reset-db": "node db/reset-db.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@course-gitlab.tuni.fi:ITC/CS/comp.cs.520/assignment-backend.git"
+  },
+  "author": "Janne Miilunpalo <janne.miilunpalo@tuni.fi>",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.3",
+    "express": "^4.17.1",
+    "helmet": "^5.0.2",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lowdb": "^3.0.0",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
+  }
+}
