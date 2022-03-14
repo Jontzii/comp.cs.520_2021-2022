@@ -1,0 +1,8 @@
+node_modules/
+public/
+.vscode/
+test/
+tests/
+index.js
+setup/
+setupTests.js

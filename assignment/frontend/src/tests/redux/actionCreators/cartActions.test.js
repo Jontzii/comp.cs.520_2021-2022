@@ -2,6 +2,7 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
 import {
 	addCartItem,
 	decrementCartItem,
@@ -19,6 +20,7 @@ import {
 import state from '../../utils/testStoreState';
 const { cart } = state;
 const product = cart[0].product;
+const newCartItem = { product: { ...product }, quantity: 1 };
 
 let store;
 beforeEach(() => {
@@ -40,7 +42,7 @@ describe('Testing thunk action creators', () => {
 				const expectedActions = [
 					{
 						type: ADD_CART_ITEM,
-						payload: product,
+						payload: newCartItem,
 					},
 					{
 						type: NEW_NOTIFICATION,
@@ -51,7 +53,7 @@ describe('Testing thunk action creators', () => {
 				window.localStorage.__proto__.setItem = jest.fn();
 
 				// assertions as usual:
-				store.dispatch(addCartItem(product));
+				store.dispatch(addCartItem(newCartItem));
 				try {
 					expect(localStorage.setItem).toHaveBeenCalled();
 				} catch (error) {
