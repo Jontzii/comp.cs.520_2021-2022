@@ -1,12 +1,12 @@
 /** @format */
 
 import {
-	ADD_CART_ITEM,
-	EMPTY_CART,
-	INIT_CART,
-	REMOVE_CART_ITEM,
-	UPDATE_CART_ITEM_AMOUNT,
-} from '../constants';
+  ADD_CART_ITEM,
+  EMPTY_CART,
+  INIT_CART,
+  REMOVE_CART_ITEM,
+  UPDATE_CART_ITEM_AMOUNT,
+} from "../constants";
 
 /**
  * Implement cartReducer that handles following cases:
@@ -19,6 +19,38 @@ import {
  * @param {Object} action the action that calls the reducer.
  * @returns {Array} new state for cart
  */
-const cartReducer = (state = [], action) => {};
+const cartReducer = (state = [], action) => {
+  switch (action.type) {
+    case INIT_CART:
+      if (action.payload) {
+        return [...action.payload];
+      }
+
+      return state;
+
+    case ADD_CART_ITEM:
+      return [...state, action.payload];
+
+    case REMOVE_CART_ITEM:
+      return [...state.filter((val) => val.product.id !== action.payload.id)];
+
+    case UPDATE_CART_ITEM_AMOUNT:
+      return [
+        ...state.map((val) => {
+          if (val.product.id === action.payload.productId) {
+            val.quantity += action.payload.amount;
+          }
+
+          return val;
+        }),
+      ];
+
+    case EMPTY_CART:
+      return [];
+
+    default:
+      return state;
+  }
+};
 
 export default cartReducer;
