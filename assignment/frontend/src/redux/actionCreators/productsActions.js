@@ -125,6 +125,7 @@ export const updateProduct = (productToUpdate) => {
   return async (dispatch) => {
     const response = await fetch(`/api/products/${productToUpdate.id}`, {
       method: "PUT",
+      body: JSON.stringify(productToUpdate),
     });
     const data = await response.json();
 
