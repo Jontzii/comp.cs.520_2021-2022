@@ -39,6 +39,7 @@ const ProductAdder = ({ open, openHandler }) => {
           onChange={(e) => setName(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Price:
         <input
@@ -49,6 +50,7 @@ const ProductAdder = ({ open, openHandler }) => {
           onChange={(e) => setPrice(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Image URL:
         <input
@@ -58,6 +60,7 @@ const ProductAdder = ({ open, openHandler }) => {
           onChange={(e) => setImage(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Description:
         <input
@@ -68,6 +71,7 @@ const ProductAdder = ({ open, openHandler }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
       </label>
+      <br />
       <button data-testid="add-button" onClick={addProductClick}>
         Add product
       </button>

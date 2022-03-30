@@ -18,7 +18,7 @@ const Products = () => {
     if (!products || products.length === 0) {
       dispatch(getProducts());
     }
-  });
+  }, [products, dispatch]);
 
   /**
    * Handles clicks of open adder

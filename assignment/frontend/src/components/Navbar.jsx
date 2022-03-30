@@ -34,6 +34,7 @@ const Navbar = () => {
           to={`/${lowerVal}`}
           key={`${lowerVal}-link`}
           data-testid={`${lowerVal}-link`}
+          style={{ padding: "2px" }}
         >
           {val}
         </Link>
@@ -58,17 +59,25 @@ const Navbar = () => {
 
   return (
     <div data-testid="navbar-component">
-      <Link to="/" data-testid="home-link">
+      <Link to="/" data-testid="home-link" style={{ padding: "2px" }}>
         Home
       </Link>
-      <Link to="/products" data-testid="products-link">
+      <Link
+        to="/products"
+        data-testid="products-link"
+        style={{ padding: "2px" }}
+      >
         Products
       </Link>
 
       {links}
 
       {isLoggedIn && (
-        <button data-testid="logout-link" onClick={logOutClick}>
+        <button
+          data-testid="logout-link"
+          onClick={logOutClick}
+          style={{ margin: "2px" }}
+        >
           Logout
         </button>
       )}

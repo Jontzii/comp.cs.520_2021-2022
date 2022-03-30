@@ -34,6 +34,7 @@ const Register = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Email:
           <input
@@ -44,6 +45,7 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Password:
           <input
@@ -54,6 +56,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Password confirmation:
           <input
@@ -64,6 +67,7 @@ const Register = () => {
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
         </label>
+        <br />
         <input data-testid="register-button" type="submit" value="Register" />
       </form>
     </div>

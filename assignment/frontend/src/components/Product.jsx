@@ -31,6 +31,8 @@ const Product = ({ providedProduct }) => {
   const { id, name, price, description } = product;
   const image = product.image;
 
+  console.log("CART:", cart);
+
   /**
    * Adds the product to cart if not in it yet
    * Increments amount by 1 if in cart
@@ -41,6 +43,7 @@ const Product = ({ providedProduct }) => {
     if (productInCart) {
       dispatch(incrementCartItem(id));
     } else {
+      console.log("Adding to cart");
       dispatch(addCartItem(product));
     }
   };
