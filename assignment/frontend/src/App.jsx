@@ -37,27 +37,47 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="products" element={<Products />}>
-          <Route path=":productId" element={<Product />}>
-            <Route path="modify" element={<ProductModifier />} />
+        {/* All */}
+        <Route path="" element={<Auth authRoles={["guest", "customer"]} />}>
+          <Route path="products" element={<Products />}>
+            <Route path=":productId" element={<Product />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        {/* Guest & Customer */}
+        <Route
+          path="/cart"
+          element={<Auth authRoles={["guest", "customer"]} />}
+        >
+          <Route path="" element={<Cart />} />
+        </Route>
+
+        {/* Admin & Customer */}
+        <Route path="" element={<Auth authRoles={["admin", "customer"]} />}>
+          <Route path="orders" element={<Orders />}>
+            <Route path=":orderId" element={<Order />} />{" "}
           </Route>
         </Route>
 
-        <Route path="cart" element={<Cart />} />
-
-        <Route path="orders" element={<Orders />}>
-          <Route path=":orderId" element={<Order />} />
+        {/* Guest */}
+        <Route path="" element={<Auth authRoles={["guest"]} />}>
+          <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-
-        <Route path="users" element={<Users />}>
-          <Route path=":userId" element={<User />}>
-            <Route path="modify" element={<UserModifier />} />
+        {/* Only admin */}
+        <Route path="" element={<Auth authRoles={["admin"]} />}>
+          <Route path="users" element={<Users />}>
+            <Route path=":userId" element={<User />} />
           </Route>
+          <Route path="users/:userId/modify" element={<ProductModifier />} />
+          <Route
+            path="products/:productId/modify"
+            element={<ProductModifier />}
+          />
         </Route>
 
+        {/* Not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <footer>

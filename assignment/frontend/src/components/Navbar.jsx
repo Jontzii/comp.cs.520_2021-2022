@@ -81,6 +81,7 @@ const Navbar = () => {
           Logout
         </button>
       )}
+      <p>Role: {role}</p>
     </div>
   );
 };
