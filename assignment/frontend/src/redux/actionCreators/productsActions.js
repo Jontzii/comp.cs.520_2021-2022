@@ -7,7 +7,6 @@ import {
   DELETE_PRODUCT,
   GET_PRODUCT,
   GET_PRODUCTS,
-  NEW_NOTIFICATION,
   UPDATE_PRODUCT,
 } from "../constants";
 import { createNotification } from "./notificationsActions";
