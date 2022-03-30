@@ -26,7 +26,11 @@ export const productMsg = {
  */
 export const getProduct = (productId) => {
   return async (dispatch) => {
-    const response = await fetch(`/api/products/${productId}`);
+    const response = await fetch(`/api/products/${productId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -51,7 +55,11 @@ export const getProduct = (productId) => {
  */
 export const getProducts = () => {
   return async (dispatch) => {
-    const response = await fetch("/api/products");
+    const response = await fetch("/api/products", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -81,6 +89,10 @@ export const addProduct = (productToAdd) => {
     const response = await fetch("/api/products", {
       method: "POST",
       body: JSON.stringify(productToAdd),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 
@@ -126,6 +138,10 @@ export const updateProduct = (productToUpdate) => {
     const response = await fetch(`/api/products/${productToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify(productToUpdate),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 
@@ -161,6 +177,9 @@ export const deleteProduct = (productId) => {
   return async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`, {
       method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      },
     });
     const data = await response.json();
 

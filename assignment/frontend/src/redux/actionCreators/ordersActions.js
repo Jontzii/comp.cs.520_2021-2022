@@ -17,7 +17,11 @@ const orderMsg = {
  */
 export const getOrder = (orderId) => {
   return async (dispatch) => {
-    const response = await fetch(`/api/orders/${orderId}`);
+    const response = await fetch(`/api/orders/${orderId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -43,7 +47,11 @@ export const getOrder = (orderId) => {
  */
 export const getOrders = () => {
   return async (dispatch) => {
-    const response = await fetch("/api/orders");
+    const response = await fetch("/api/orders", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -77,6 +85,10 @@ export const addOrder = (newOrder) => {
     const response = await fetch("/api/orders", {
       method: "POST",
       body: JSON.stringify(newOrder),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 

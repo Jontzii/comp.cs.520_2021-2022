@@ -25,7 +25,11 @@ const userMsg = {
  */
 export const getUser = (userId) => {
   return async (dispatch) => {
-    const response = await fetch(`/api/users/${userId}`);
+    const response = await fetch(`/api/users/${userId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -51,7 +55,11 @@ export const getUser = (userId) => {
  */
 export const getUsers = () => {
   return async (dispatch) => {
-    const response = await fetch("/api/users");
+    const response = await fetch("/api/users", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -81,6 +89,10 @@ export const updateUser = (updatedUser) => {
     const response = await fetch(`/api/users/${updatedUser.id}`, {
       method: "PUT",
       body: JSON.stringify(updatedUser),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 
@@ -117,6 +129,9 @@ export const removeUser = (userId) => {
   return async (dispatch) => {
     const response = await fetch(`/api/users/${userId}`, {
       method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      },
     });
     const data = await response.json();
 

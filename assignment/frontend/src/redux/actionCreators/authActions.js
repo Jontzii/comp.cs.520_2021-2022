@@ -34,11 +34,15 @@ export const validAuth = {
  * 1) INIT_AUTH with user as payload.
  * If the response is not ok, it only dispatches a NEW_NOTIFICATION-type action to the frontends notification state along with the error message from db as an unsuccessfull message.
  *
- * @returns {Function} 
+ * @returns {Function}
  */
 export const initAuth = () => {
   return async (dispatch) => {
-    const response = await fetch("/api/check-status");
+    const response = await fetch("/api/check-status", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -69,7 +73,7 @@ export const initAuth = () => {
  * 2) succesfull notification with validAuth.welcomeBack as message.
  * If the response is not ok, it only dispatches a NEW_NOTIFICATION-type action to the frontends notification state along with the error message from db as an unsuccessfull notification.
  * @param {Object} logInCreds - The credentials used to login, contains username and password
- * @returns {Function} 
+ * @returns {Function}
  */
 export const logIn = (logInCreds) => {
   return async (dispatch) => {
@@ -94,6 +98,10 @@ export const logIn = (logInCreds) => {
     const response = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(logInCreds),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 
@@ -131,7 +139,11 @@ export const logIn = (logInCreds) => {
  */
 export const logOut = () => {
   return async (dispatch) => {
-    const response = await fetch("/api/logout");
+    const response = await fetch("/api/logout", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -194,6 +206,10 @@ export const register = (registerCreds) => {
     const response = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify(registerCreds),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     });
     const data = await response.json();
 
