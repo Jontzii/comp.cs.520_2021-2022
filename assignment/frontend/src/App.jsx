@@ -18,10 +18,6 @@ import Orders from "./components/Orders";
 import Products from "./components/Products";
 import Product from "./components/Product";
 import ProductModifier from "./components/ProductModifier";
-import Finder from "./components/Finder";
-import { getOrder } from "./redux/actionCreators/ordersActions";
-import { getProduct } from "./redux/actionCreators/productsActions";
-import { getUser } from "./redux/actionCreators/usersActions";
 import { initApp } from "./redux/actionCreators/appActions";
 const App = () => {
   const dispatch = useDispatch();
