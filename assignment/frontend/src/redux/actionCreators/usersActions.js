@@ -97,25 +97,25 @@ export const updateUser = (updatedUser) => {
     const data = await response.json();
 
     if (!response.ok) {
-      return dispatch(
+      dispatch(
         createNotification({
           isSuccess: false,
           message: data.error,
         })
       );
+    } else {
+      dispatch({
+        type: UPDATE_USER,
+        payload: data,
+      });
+
+      dispatch(
+        createNotification({
+          isSuccess: true,
+          message: userMsg.updateUser,
+        })
+      );
     }
-
-    dispatch({
-      type: UPDATE_USER,
-      payload: data,
-    });
-
-    dispatch(
-      createNotification({
-        isSuccess: true,
-        message: userMsg.updateUser,
-      })
-    );
   };
 };
 /**
