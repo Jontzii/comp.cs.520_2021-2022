@@ -73,13 +73,14 @@ const Navbar = () => {
       {links}
 
       {isLoggedIn && (
-        <button
+        <Link
+          to={"/"}
           data-testid="logout-link"
           onClick={logOutClick}
-          style={{ margin: "2px" }}
+          style={{ padding: "2px" }}
         >
           Logout
-        </button>
+        </Link>
       )}
       <p>Role: {role}</p>
     </div>
