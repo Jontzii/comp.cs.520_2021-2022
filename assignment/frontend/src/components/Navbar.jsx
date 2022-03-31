@@ -52,8 +52,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const links = AllLinks[role] || AllLinks["guest"];
-    setLinks(createLinks(links));
+    const roleLinks = AllLinks[role] || AllLinks["guest"];
+    setLinks(createLinks(roleLinks));
     setLoggedIn(role && (role === "customer" || role === "admin"));
   }, [role]);
 

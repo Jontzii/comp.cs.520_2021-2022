@@ -13,7 +13,7 @@ const Orders = () => {
     if (!orders || orders.length === 0) {
       dispatch(getOrders());
     }
-  }, []);
+  }, [dispatch, orders]);
 
   if (!orders || orders.length === 0) {
     return <div data-testid="no-order-component"></div>;
