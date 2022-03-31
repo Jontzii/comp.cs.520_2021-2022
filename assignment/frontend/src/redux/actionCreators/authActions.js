@@ -46,6 +46,15 @@ export const initAuth = () => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -106,6 +115,15 @@ export const logIn = (logInCreds) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,

@@ -34,6 +34,15 @@ export const getProduct = (productId) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -63,6 +72,15 @@ export const getProducts = () => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -146,6 +164,15 @@ export const updateProduct = (productToUpdate) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -184,6 +211,15 @@ export const deleteProduct = (productId) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,

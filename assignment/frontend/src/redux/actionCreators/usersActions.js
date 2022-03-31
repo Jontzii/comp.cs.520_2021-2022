@@ -33,6 +33,15 @@ export const getUser = (userId) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -63,6 +72,15 @@ export const getUsers = () => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -97,7 +115,16 @@ export const updateUser = (updatedUser) => {
     const data = await response.json();
 
     if (!response.ok) {
-      dispatch(
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
+      return dispatch(
         createNotification({
           isSuccess: false,
           message: data.error,
@@ -136,6 +163,15 @@ export const removeUser = (userId) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,

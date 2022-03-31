@@ -25,6 +25,15 @@ export const getOrder = (orderId) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -55,6 +64,15 @@ export const getOrders = () => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
@@ -84,7 +102,7 @@ export const addOrder = (newOrder) => {
   return async (dispatch) => {
     const response = await fetch("/api/orders", {
       method: "POST",
-      body: JSON.stringify(newOrder),
+      body: JSON.stringify({ items: newOrder }),
       headers: {
         Accept: "application/json",
         "Content-type": "application/json",
@@ -93,24 +111,33 @@ export const addOrder = (newOrder) => {
     const data = await response.json();
 
     if (!response.ok) {
+      if (typeof data.error === "object") {
+        return dispatch(
+          createNotification({
+            isSuccess: false,
+            message: Object.values(data.error)[0],
+          })
+        );
+      }
+
       return dispatch(
         createNotification({
           isSuccess: false,
           message: data.error,
         })
       );
+    } else {
+      dispatch(emptyCart());
+      dispatch({
+        type: ADD_ORDER,
+        payload: data,
+      });
+      dispatch(
+        createNotification({
+          isSuccess: true,
+          message: orderMsg.newOrder,
+        })
+      );
     }
-
-    dispatch(emptyCart());
-    dispatch({
-      type: ADD_ORDER,
-      payload: data,
-    });
-    dispatch(
-      createNotification({
-        isSuccess: true,
-        message: orderMsg.newOrder,
-      })
-    );
   };
 };
