@@ -44,7 +44,7 @@ const Cart = () => {
     );
   }
 
-  const cartItems = cartState.map((val) => CartItem(val));
+  const cartItems = cartState.map((val) => CartItem({ item: val }));
 
   return (
     <div data-testid="cart-component">

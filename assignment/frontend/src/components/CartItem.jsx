@@ -12,8 +12,9 @@ import {
  * Render cart item
  * @component
  */
-const CartItem = ({ product, quantity }) => {
+const CartItem = ({ item }) => {
   const dispatch = useDispatch();
+  const { product, quantity } = item;
 
   /**
    * Decrement or remove item from cart
