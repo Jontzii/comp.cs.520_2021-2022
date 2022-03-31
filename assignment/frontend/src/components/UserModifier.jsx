@@ -22,7 +22,7 @@ const UserModifier = () => {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUser({ id, name, newRole }));
+    dispatch(updateUser({ id, name, role: newRole }));
     navigate("/users");
   };
 
