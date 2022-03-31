@@ -41,7 +41,7 @@ const Product = ({ providedProduct }) => {
     if (productInCart) {
       dispatch(incrementCartItem(id));
     } else {
-      dispatch(addCartItem(product));
+      dispatch(addCartItem({ product, quantity: 1 }));
     }
   };
 

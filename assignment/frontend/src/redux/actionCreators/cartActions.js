@@ -45,10 +45,10 @@ export const addCartItem = (product) => {
     const cartLocal = localStorage.getItem("cart");
 
     if (!cartLocal) {
-      localStorage.setItem("cart", JSON.stringify([{ product, quantity: 1 }]));
+      localStorage.setItem("cart", JSON.stringify([product]));
     } else {
       const cart = JSON.parse(cartLocal);
-      cart.push({ product, quantity: 1 });
+      cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
     }
 
