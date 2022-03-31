@@ -32,7 +32,7 @@ const Order = ({ providedOrder }) => {
       <h3 data-testid="orderId-heading">{id}</h3>
       <h3 data-testid="customerId-heading">{customerId}</h3>
       {!orderId && (
-        <Link data-testid="inspect-link" to={`/${id}`}>
+        <Link data-testid="inspect-link" to={`${id}`}>
           Inspect
         </Link>
       )}
