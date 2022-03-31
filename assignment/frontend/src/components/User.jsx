@@ -45,7 +45,7 @@ const User = ({ providedUser }) => {
     <div data-testid="user-component">
       <h3 data-testid="name-heading">{name}</h3>
       {!userId && (
-        <Link data-testid="inspect-link" to={`/${id}`}>
+        <Link data-testid="inspect-link" to={`${id}`}>
           Inspect
         </Link>
       )}

@@ -38,41 +38,38 @@ const App = () => {
         <Route path="/" element={<Home />} />
 
         {/* All */}
-        <Route path="" element={<Auth authRoles={["guest", "customer"]} />}>
-          <Route path="products" element={<Products />}>
-            <Route path=":productId" element={<Product />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
+        <Route
+          path=""
+          element={<Auth authRoles={["admin", "customer", "guest"]} />}
+        >
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<Product />} />
         </Route>
 
         {/* Guest & Customer */}
-        <Route
-          path="/cart"
-          element={<Auth authRoles={["guest", "customer"]} />}
-        >
-          <Route path="" element={<Cart />} />
+        <Route path="" element={<Auth authRoles={["guest", "customer"]} />}>
+          <Route path="/cart" element={<Cart />} />
         </Route>
 
         {/* Admin & Customer */}
         <Route path="" element={<Auth authRoles={["admin", "customer"]} />}>
-          <Route path="orders" element={<Orders />}>
-            <Route path=":orderId" element={<Order />} />{" "}
-          </Route>
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:orderId" element={<Order />} />
         </Route>
 
         {/* Guest */}
         <Route path="" element={<Auth authRoles={["guest"]} />}>
-          <Route path="register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Route>
 
         {/* Only admin */}
         <Route path="" element={<Auth authRoles={["admin"]} />}>
-          <Route path="users" element={<Users />}>
-            <Route path=":userId" element={<User />} />
-          </Route>
-          <Route path="users/:userId/modify" element={<ProductModifier />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:userId" element={<User />} />
+          <Route path="/users/:userId/modify" element={<UserModifier />} />
           <Route
-            path="products/:productId/modify"
+            path="/products/:productId/modify"
             element={<ProductModifier />}
           />
         </Route>
