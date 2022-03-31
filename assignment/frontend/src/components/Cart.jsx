@@ -39,7 +39,7 @@ const Cart = () => {
   if (!cartState || cartState.length === 0) {
     return (
       <div data-testid="cart-component">
-        <div data-testid="empty-cart"></div>
+        <div data-testid="empty-cart">empty</div>
       </div>
     );
   }
