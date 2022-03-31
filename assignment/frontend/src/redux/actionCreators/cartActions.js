@@ -162,4 +162,7 @@ export const decrementCartItem = (productId) => {
  * @description An action creator which removes the entire cart-item from local store. Returns an action with EMPTY_CART-type to remove cart all items.
  * @returns {Object} the action
  */
-export const emptyCart = () => ({ type: EMPTY_CART });
+export const emptyCart = () => {
+  localStorage.removeItem("cart");
+  return { type: EMPTY_CART };
+};
