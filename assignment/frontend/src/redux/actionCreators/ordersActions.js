@@ -102,7 +102,7 @@ export const addOrder = (newOrder) => {
   return async (dispatch) => {
     const response = await fetch("/api/orders", {
       method: "POST",
-      body: JSON.stringify({ items: newOrder }),
+      body: JSON.stringify(newOrder),
       headers: {
         Accept: "application/json",
         "Content-type": "application/json",

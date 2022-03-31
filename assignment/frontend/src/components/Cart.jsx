@@ -14,7 +14,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartState = useSelector((state) => state.cart);
-  const role = useSelector((state) => state.auth).role;
+  const auth = useSelector((state) => state.auth);
 
   /**
    * Handle order
@@ -23,7 +23,7 @@ const Cart = () => {
   const orderClick = (e) => {
     e.preventDefault();
 
-    if (!role || role === "guest") {
+    if (!auth || !auth.role || auth.role === "guest") {
       dispatch(
         createNotification({
           message: "Authentication required",
@@ -32,7 +32,16 @@ const Cart = () => {
       );
       navigate("/login");
     } else {
-      dispatch(addOrder(cartState));
+      const order = {
+        customerId: auth.id,
+        items: cartState.map((val) => {
+          delete val.product.image;
+          delete val.amount;
+          return val;
+        }),
+      };
+
+      dispatch(addOrder(order));
     }
   };
 
@@ -49,7 +58,9 @@ const Cart = () => {
   return (
     <div data-testid="cart-component">
       <div data-testid="cart-item-container">{cartItems}</div>
-      <button data-testid="order-button" onClick={orderClick}></button>
+      <button data-testid="order-button" onClick={orderClick}>
+        Order
+      </button>
     </div>
   );
 };
